@@ -1,4 +1,7 @@
 const taskContainer = document.querySelector(".task__container");
+//Global store
+const globalstore=[];
+//card1,card2,card3
 
 const newCard = ({
   id,
@@ -36,6 +39,24 @@ const newCard = ({
 </div>
 </div>`;
 
+const loadinitialTaskCards= () =>
+{
+  //access localstorage
+const getInitialData=localStorage.getItem("tasky");
+if(!getInitialData) return;
+
+const {cards}=JSON.parse(getInitialData);
+cards.map((cardObject) =>
+  {
+    const createNewCard=newCard(cardObject);
+    taskContainer.insertAdjacentHTML("beforeend",createNewCard);
+    globalstore.push(cardObject);
+  }
+  );
+};
+
+
+
 const saveChanges = () => {
   const taskData = {
     id: `${Date.now()}`, // unique number for card id 
@@ -48,9 +69,17 @@ const saveChanges = () => {
   const createNewCard = newCard(taskData);
 
   taskContainer.insertAdjacentHTML("beforeend", createNewCard);
-};
+  globalstore.push(taskData);
+ // console.log(globalstore);
+ //Application programming interface
+//localstorage->interface->programming
+// add to localstorage
+localStorage.setItem("tasky",JSON.stringify({cards:globalstore}));};
+//key->data
+
 //The modal was not closing upon adding new card,
-// the cards were deleted after refresh
+// the cards were deleted after refresh->local storage(5MB)
 //features
 //delete modal feature
-//
+//open task
+//edit task
