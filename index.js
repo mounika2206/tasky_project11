@@ -49,3 +49,8 @@ const saveChanges = () => {
 
   taskContainer.insertAdjacentHTML("beforeend", createNewCard);
 };
+//The modal was not closing upon adding new card,
+// the cards were deleted after refresh
+//features
+//delete modal feature
+//
